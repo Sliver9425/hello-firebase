@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main  # Despliega automáticamente al hacer push a la rama main
+      - main  
 
 jobs:
   build_and_deploy:
@@ -24,8 +24,9 @@ jobs:
       - name: Deploy to Firebase Hosting
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-key.json
         run: |
           echo "$FIREBASE_SERVICE_ACCOUNT" > $HOME/firebase-key.json
-          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-key.json"
-          firebase deploy --only hosting --project hello-firebase-59e70 --non-interactive --force
+          firebase deploy --only hosting --non-interactive --project hello-firebase-59e70
+
 
